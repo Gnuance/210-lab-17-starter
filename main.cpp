@@ -12,14 +12,15 @@ struct Node
     Node *next;
 };
 
+// Function declarations
 void createRandomList(Node *&, const int);
 void deleteNodeByIndex(Node *&, const int);
 void insertNodeAfterIndex(Node *&, const int);
 void deleteList(Node *&);
-void output(Node *);           // Outputs entire list to console
-bool validNodeIndex(int);      // Tests whether a user given index is valid or out of bounds.
-                               // In this case, [1,size of list)
-int getLinkedListSize(Node *); // Returns the size of a linked list
+void output(Node *);              // Outputs entire list to console
+bool validNodeIndex(Node *, int); // Tests whether a user given index is valid or out of bounds.
+                                  // In this case, [1,size of list)
+int getLinkedListSize(Node *);    // Returns the size of a linked list
 
 int main()
 {
@@ -27,19 +28,22 @@ int main()
     const int SIZE = 7; // Changed from global variable to a local variable in main
     int entry;          // To collect user input
 
-    // int count = 0;int entry;
-
-    // Create a linked list of size SIZE with random numbers 0-99
+    // Create a rand() generated linked list of size SIZE with random numbers 0-99
     cout << "Initial linked list:" << endl;
     createRandomList(head, SIZE);
     output(head);
 
     // Get user input asking which node to delete
-    // Node *current = head;
     cout << "Which node to delete? " << endl;
     output(head);
     cout << "Choice --> ";
     cin >> entry;
+    while (!validNodeIndex(head, entry))
+    {
+        cout << "Please enter a valid index. Choice --> " << endl;
+        cin >> entry;
+    }
+    
     // Delete selected node and output modified list
     deleteNodeByIndex(head, entry);
     output(head);
@@ -167,8 +171,9 @@ void output(Node *hd)
 }
 
 // Returns whether a given node index is valid
-bool validNodeIndex(int userInput)
+bool validNodeIndex(Node *head, int userInput)
 {
+    return userInput > 0 && userInput <= getLinkedListSize(head);
 }
 
 // Returns size of a given linked list
