@@ -1,5 +1,12 @@
 /* Lab 17: Refactor linked list to modularize code into functions.
     IDE: Vscode
+
+    Design: Refactored major functionality into the following categories: 
+    1. Generating a rand() list to work with;
+    2. Deleting a given node index selected by user. Index values start at 1 instead of 0;
+    3. Insertion of a node after an index selected by user;
+    4. Deletion of the entire list;
+    
 */
 
 #include <iostream>
@@ -29,36 +36,43 @@ int main()
     int entry;          // To collect user input
 
     // Create a rand() generated linked list of size SIZE with random numbers 0-99
-    cout << "Initial linked list:" << endl;
     createRandomList(head, SIZE);
+    cout << "Initial linked list:" << endl;
     output(head);
 
-    // Get user input asking which node to delete
+    // Get user input asking which node to delete, validate, delete
     cout << "Which node to delete? " << endl;
     output(head);
     cout << "Choice --> ";
     cin >> entry;
-    while (!validNodeIndex(head, entry))
+    while (!validNodeIndex(head, entry)) // Validate user entry
     {
-        cout << "Please enter a valid index. Choice --> " << endl;
+        cout << "\nPlease enter a valid index. Choice --> ";
         cin >> entry;
-    }
-    
+    }    
     // Delete selected node and output modified list
     deleteNodeByIndex(head, entry);
+    cout << "Resulting list after node deletion:" << endl;
     output(head);
 
-    // insert a node
+    // Insert a node after validating entry
     cout << "After which node to insert 10000? " << endl;
     output(head);
     cout << "Choice --> ";
     cin >> entry;
+    while (!validNodeIndex(head, entry)) // Validate user entry
+    {
+        cout << "\nPlease enter a valid index. Choice --> ";
+        cin >> entry;
+    }  
     // Insert node based on user given index, and output modified list
     insertNodeAfterIndex(head, entry);
+    cout << "Resulting list after insert:" << endl;
     output(head);
 
     // Delete the linked list and output
     deleteList(head);
+    cout << "Resulting list after deletion:" << endl;
     output(head);
 
     return 0;
