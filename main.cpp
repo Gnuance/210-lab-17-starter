@@ -14,15 +14,18 @@ struct Node
 
 void createRandomList(Node *&, const int);
 void deleteNodeByIndex(Node *&, const int);
-void insertNodeByIndex(Node *&, const int);
+void insertNodeAfterIndex(Node *&, const int);
 void deleteList(Node *&);
-void output(Node *); // Outputs entire list to console
+void output(Node *);           // Outputs entire list to console
+bool validNodeIndex(int);      // Tests whether a user given index is valid or out of bounds.
+                               // In this case, [1,size of list)
+int getLinkedListSize(Node *); // Returns the size of a linked list
 
 int main()
 {
     Node *head = nullptr;
     const int SIZE = 7; // Changed from global variable to a local variable in main
-    int entry; // To collect user input
+    int entry;          // To collect user input
 
     // int count = 0;int entry;
 
@@ -54,7 +57,7 @@ int main()
     cout << "Choice --> ";
     cin >> entry;
     // Insert node based on user given index, and output modified list
-    insertNodeByIndex(head, entry);
+    insertNodeAfterIndex(head, entry);
     output(head);
 
     // Delete the linked list and output
@@ -102,7 +105,8 @@ void deleteNodeByIndex(Node *&head, int index)
             prev = prev->next;
         }
     // TODO: But what if the first element was selected for deletion? Reroute head to next element
-    if (current && current == head) {
+    if (current && current == head)
+    {
         head = head->next;
     }
     // at this point, delete current and reroute pointers
@@ -111,14 +115,15 @@ void deleteNodeByIndex(Node *&head, int index)
         prev->next = current->next;
         delete current;
         current = nullptr;
-    } 
+    }
 }
 
-void insertNodeByIndex(Node *&head, const int index)
+void insertNodeAfterIndex(Node *&head, const int index)
 {
     Node *current = head;
     Node *prev = head;
     for (int i = 0; i < (index); i++)
+    {
         if (i == 0)
             current = current->next;
         else
@@ -126,11 +131,15 @@ void insertNodeByIndex(Node *&head, const int index)
             current = current->next;
             prev = prev->next;
         }
+    }
     // at this point, insert a node between prev and current
-    Node *newnode = new Node;
-    newnode->value = 10000;
-    newnode->next = current;
-    prev->next = newnode;
+    if (current != head)
+    {
+        Node *newnode = new Node;
+        newnode->value = 10000;
+        newnode->next = current;
+        prev->next = newnode;
+    }
 }
 
 // Deletes an entire linked list node by node starting at head
@@ -162,4 +171,21 @@ void output(Node *hd)
         current = current->next;
     }
     cout << endl;
+}
+
+// Returns whether a given node index is valid
+bool validNodeIndex(int userInput)
+{
+}
+
+// Returns size of a given linked list
+int getLinkedListSize(Node *head)
+{
+    int count = 0;
+    while (head)
+    {
+        count++;
+        head = head->next;
+    }
+    return count;
 }
