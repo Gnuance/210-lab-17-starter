@@ -16,43 +16,44 @@ void createRandomList(Node *&, const int);
 void deleteNodeByIndex(Node *&, const int);
 void insertNodeByIndex(Node *&, const int);
 void deleteList(Node *&);
-void output(Node *);
+void output(Node *); // Outputs entire list to console
 
 int main()
 {
     Node *head = nullptr;
-    int count = 0;
     const int SIZE = 7; // Changed from global variable to a local variable in main
+    int entry; // To collect user input
+
+    // int count = 0;int entry;
 
     // Create a linked list of size SIZE with random numbers 0-99
+    cout << "Initial linked list:" << endl;
     createRandomList(head, SIZE);
     output(head);
 
     // Get user input asking which node to delete
-    Node *current = head;
+    // Node *current = head;
     cout << "Which node to delete? " << endl;
     output(head);
-    int entry;
     cout << "Choice --> ";
     cin >> entry;
-
-    // traverse that many times and delete that node
+    // Delete selected node and output modified list
     deleteNodeByIndex(head, entry);
     output(head);
 
     // insert a node
-    current = head;
+    // current = head;
     cout << "After which node to insert 10000? " << endl;
-    count = 1;
-    while (current)
-    {
-        cout << "[" << count++ << "] " << current->value << endl;
-        current = current->next;
-    }
+    output(head);
+    // count = 1;
+    // while (current)
+    // {
+    //     cout << "[" << count++ << "] " << current->value << endl;
+    //     current = current->next;
+    // }
     cout << "Choice --> ";
     cin >> entry;
-
-    // Inserts node based on index of the list
+    // Insert node based on user given index, and output modified list
     insertNodeByIndex(head, entry);
     output(head);
 
