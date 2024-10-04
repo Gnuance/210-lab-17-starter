@@ -100,14 +100,17 @@ void deleteNodeByIndex(Node *&head, int index)
             current = current->next;
             prev = prev->next;
         }
+    // TODO: But what if the first element was selected for deletion? Reroute head to next element
+    if (current && current == head) {
+        head = head->next;
+    }
     // at this point, delete current and reroute pointers
     if (current)
     { // checks for current to be valid before deleting the node
         prev->next = current->next;
         delete current;
         current = nullptr;
-    }
-    // TODO: But what if the first element was selected for deletion???
+    } 
 }
 
 void insertNodeByIndex(Node *&head, const int index)
