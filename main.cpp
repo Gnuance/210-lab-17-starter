@@ -12,8 +12,10 @@ struct Node
     Node *next;
 };
 
-void output(const Node *);
+void createList(Node *, const int);
+void deleteNodebyIndex(Node *, const int);
 void deleteList(Node *);
+void output(Node *);
 
 int main()
 {
@@ -21,26 +23,8 @@ int main()
     int count = 0;
     const int SIZE = 7; // Changed from global variable to a local variable in main
 
-    // create a linked list of size SIZE with random numbers 0-99
-    for (int i = 0; i < SIZE; i++)
-    {
-        int tmp_val = rand() % 100;
-        Node *newVal = new Node;
-
-        // adds node at head
-        if (!head)
-        { // if this is the first node, it's the new head
-            head = newVal;
-            newVal->next = nullptr;
-            newVal->value = tmp_val;
-        }
-        else
-        { // its a second or subsequent node; place at the head
-            newVal->next = head;
-            newVal->value = tmp_val;
-            head = newVal;
-        }
-    }
+    // Create a linked list of size SIZE with random numbers 0-99
+    createList(head, SIZE);
     output(head);
 
     // Get user input asking which node to delete
@@ -52,23 +36,7 @@ int main()
     cin >> entry;
 
     // traverse that many times and delete that node
-    current = head;
-    Node *prev = head;
-    for (int i = 0; i < (entry - 1); i++)
-        if (i == 0)
-            current = current->next;
-        else
-        {
-            current = current->next;
-            prev = prev->next;
-        }
-    // at this point, delete current and reroute pointers
-    if (current)
-    { // checks for current to be valid before deleting the node
-        prev->next = current->next;
-        delete current;
-        current = nullptr;
-    }
+    deleteNodeByIndex(head, entry);
     output(head);
 
     // insert a node
@@ -107,10 +75,56 @@ int main()
     return 0;
 }
 
+// Creates a linked list of size SIZE with random integers
+void createList(Node *head, const int SIZE)
+{
+    for (int i = 0; i < SIZE; i++)
+    {
+        int tmp_val = rand() % 100;
+        Node *newVal = new Node;
+
+        // adds node at head
+        if (!head)
+        { // if this is the first node, it's the new head
+            head = newVal;
+            newVal->next = nullptr;
+            newVal->value = tmp_val;
+        }
+        else
+        { // its a second or subsequent node; place at the head
+            newVal->next = head;
+            newVal->value = tmp_val;
+            head = newVal;
+        }
+    }
+}
+
+// Deletes a node based on it's index in the linked list
+void deleteNodeByIndex(Node *head, int index)
+{
+    Node *current = head;
+    Node *prev = head;
+    for (int i = 0; i < (index - 1); i++)
+        if (i == 0)
+            current = current->next;
+        else
+        {
+            current = current->next;
+            prev = prev->next;
+        }
+    // at this point, delete current and reroute pointers
+    if (current)
+    { // checks for current to be valid before deleting the node
+        prev->next = current->next;
+        delete current;
+        current = nullptr;
+    }
+}
+
 // Deletes an entire linked list node by node starting at head
 void deleteList(Node *head)
 {
-    Node * current = head;
+    Node *current = head;
     while (current)
     {
         head = current->next;
@@ -121,7 +135,7 @@ void deleteList(Node *head)
 }
 
 // Outputs linked list starting at head element
-void output(const Node *hd)
+void output(Node *hd)
 {
     if (!hd)
     {
