@@ -12,8 +12,9 @@ struct Node
     Node *next;
 };
 
-void createList(Node *, const int);
-void deleteNodebyIndex(Node *, const int);
+Node * createList(Node *, const int);
+void deleteNodeByIndex(Node *, const int);
+void insertNodeByIndex(Node *, const int);
 void deleteList(Node *);
 void output(Node *);
 
@@ -24,7 +25,7 @@ int main()
     const int SIZE = 7; // Changed from global variable to a local variable in main
 
     // Create a linked list of size SIZE with random numbers 0-99
-    createList(head, SIZE);
+    head = createList(head, SIZE);
     output(head);
 
     // Get user input asking which node to delete
@@ -51,21 +52,8 @@ int main()
     cout << "Choice --> ";
     cin >> entry;
 
-    current = head;
-    prev = head;
-    for (int i = 0; i < (entry); i++)
-        if (i == 0)
-            current = current->next;
-        else
-        {
-            current = current->next;
-            prev = prev->next;
-        }
-    // at this point, insert a node between prev and current
-    Node *newnode = new Node;
-    newnode->value = 10000;
-    newnode->next = current;
-    prev->next = newnode;
+    // Inserts node based on index of the list
+    insertNodeByIndex(head, entry);
     output(head);
 
     // Delete the linked list and output
@@ -76,7 +64,7 @@ int main()
 }
 
 // Creates a linked list of size SIZE with random integers
-void createList(Node *head, const int SIZE)
+Node * createList(Node *head, const int SIZE)
 {
     for (int i = 0; i < SIZE; i++)
     {
@@ -97,6 +85,7 @@ void createList(Node *head, const int SIZE)
             head = newVal;
         }
     }
+    return head;
 }
 
 // Deletes a node based on it's index in the linked list
@@ -119,6 +108,25 @@ void deleteNodeByIndex(Node *head, int index)
         delete current;
         current = nullptr;
     }
+}
+
+void insertNodeByIndex(Node *head, const int index)
+{
+    Node *current = head;
+    Node *prev = head;
+    for (int i = 0; i < (index); i++)
+        if (i == 0)
+            current = current->next;
+        else
+        {
+            current = current->next;
+            prev = prev->next;
+        }
+    // at this point, insert a node between prev and current
+    Node *newnode = new Node;
+    newnode->value = 10000;
+    newnode->next = current;
+    prev->next = newnode;
 }
 
 // Deletes an entire linked list node by node starting at head
