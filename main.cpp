@@ -108,6 +108,7 @@ void deleteNodeByIndex(Node *head, int index)
         delete current;
         current = nullptr;
     }
+    head = prev->next;
 }
 
 void insertNodeByIndex(Node *head, const int index)
