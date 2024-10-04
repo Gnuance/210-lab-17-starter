@@ -87,7 +87,7 @@ void createRandomList(Node *&head, const int SIZE)
     }
 }
 
-// Deletes a node based on it's index in the linked lists
+// Deletes a node based on it's index in the linked list
 void deleteNodeByIndex(Node *&head, int index)
 {
     Node *current = head;
@@ -107,7 +107,7 @@ void deleteNodeByIndex(Node *&head, int index)
         delete current;
         current = nullptr;
     }
-    head = prev;
+    // TODO: But what if the first element was selected for deletion???
 }
 
 void insertNodeByIndex(Node *&head, const int index)
