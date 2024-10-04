@@ -12,10 +12,10 @@ struct Node
     Node *next;
 };
 
-Node *createRandomList(Node *&, const int);
-void deleteNodeByIndex(Node *, const int);
-void insertNodeByIndex(Node *, const int);
-void deleteList(Node *);
+void createRandomList(Node *&, const int);
+void deleteNodeByIndex(Node *&, const int);
+void insertNodeByIndex(Node *&, const int);
+void deleteList(Node *&);
 void output(Node *);
 
 int main()
@@ -25,7 +25,7 @@ int main()
     const int SIZE = 7; // Changed from global variable to a local variable in main
 
     // Create a linked list of size SIZE with random numbers 0-99
-    head = createList(head, SIZE);
+    createRandomList(head, SIZE);
     output(head);
 
     // Get user input asking which node to delete
@@ -64,7 +64,7 @@ int main()
 }
 
 // Creates a linked list of size SIZE with random integers
-void createRandomList(Node *head, const int SIZE)
+void createRandomList(Node *&head, const int SIZE)
 {
     for (int i = 0; i < SIZE; i++)
     {
