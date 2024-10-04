@@ -12,7 +12,7 @@ struct Node
     Node *next;
 };
 
-Node * createList(Node *, const int);
+Node *createList(Node *, const int);
 void deleteNodeByIndex(Node *, const int);
 void insertNodeByIndex(Node *, const int);
 void deleteList(Node *);
@@ -25,7 +25,7 @@ int main()
     const int SIZE = 7; // Changed from global variable to a local variable in main
 
     // Create a linked list of size SIZE with random numbers 0-99
-    head = createList(head, SIZE);
+    createList(head, SIZE);
     output(head);
 
     // Get user input asking which node to delete
@@ -64,7 +64,7 @@ int main()
 }
 
 // Creates a linked list of size SIZE with random integers
-Node * createList(Node *head, const int SIZE)
+void createList(Node *&head, const int SIZE)
 {
     for (int i = 0; i < SIZE; i++)
     {
@@ -85,11 +85,10 @@ Node * createList(Node *head, const int SIZE)
             head = newVal;
         }
     }
-    return head;
 }
 
 // Deletes a node based on it's index in the linked list
-void deleteNodeByIndex(Node *head, int index)
+void deleteNodeByIndex(Node *&head, int index)
 {
     Node *current = head;
     Node *prev = head;
@@ -108,10 +107,10 @@ void deleteNodeByIndex(Node *head, int index)
         delete current;
         current = nullptr;
     }
-    head = prev->next;
+    head = prev;
 }
 
-void insertNodeByIndex(Node *head, const int index)
+void insertNodeByIndex(Node *&head, const int index)
 {
     Node *current = head;
     Node *prev = head;
@@ -131,7 +130,7 @@ void insertNodeByIndex(Node *head, const int index)
 }
 
 // Deletes an entire linked list node by node starting at head
-void deleteList(Node *head)
+void deleteList(Node *&head)
 {
     Node *current = head;
     while (current)
