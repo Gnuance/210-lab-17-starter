@@ -45,15 +45,8 @@ int main()
     output(head);
 
     // insert a node
-    // current = head;
     cout << "After which node to insert 10000? " << endl;
     output(head);
-    // count = 1;
-    // while (current)
-    // {
-    //     cout << "[" << count++ << "] " << current->value << endl;
-    //     current = current->next;
-    // }
     cout << "Choice --> ";
     cin >> entry;
     // Insert node based on user given index, and output modified list
