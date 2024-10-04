@@ -1,12 +1,18 @@
-/* Lab 17: Refactor linked list to modularize code into functions.
+/*  Lab 17: Refactor linked list to modularize code into functions.
     IDE: Vscode
 
-    Design: Refactored major functionality into the following categories: 
+    Design Decisions: Refactored major functionality into the following categories: 
     1. Generating a rand() list to work with;
     2. Deleting a given node index selected by user. Index values start at 1 instead of 0;
     3. Insertion of a node after an index selected by user;
     4. Deletion of the entire list;
-    
+    5. Output: a function specifically designed to cout entire list.
+    6. Validation of user input to make sure node selected is within list. Ex: if list has item indexes [0,6], user must select a value [1,7].
+    7. Get size function to return current size of the list to assist with user input validation to verify upper bound.
+
+    main() was left to manage the overall flow of the program, collect and verify user input, and call functions. User input and verification could be
+    collected inside separate functions, but for this assignment, it would probably only add unnecessary abstraction and wouldn't really improve program flow.
+    Readability would benefit slightly, but it's fairly straightforward as is with the included code block comments.
 */
 
 #include <iostream>
@@ -25,8 +31,7 @@ void deleteNodeByIndex(Node *&, const int);
 void insertNodeAfterIndex(Node *&, const int);
 void deleteList(Node *&);
 void output(Node *);              // Outputs entire list to console
-bool validNodeIndex(Node *, int); // Tests whether a user given index is valid or out of bounds.
-                                  // In this case, [1,size of list)
+bool validNodeIndex(Node *, int); // Tests whether a user given index is valid or out of bounds. In this case, [1,size of list)
 int getLinkedListSize(Node *);    // Returns the size of a linked list
 
 int main()
@@ -103,7 +108,7 @@ void createRandomList(Node *&head, const int SIZE)
 }
 
 // Deletes a node based on it's index in the linked list
-void deleteNodeByIndex(Node *&head, int index)
+void deleteNodeByIndex(Node *&head, const int index)
 {
     Node *current = head;
     Node *prev = head;
