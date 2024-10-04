@@ -87,7 +87,7 @@ void createRandomList(Node *&head, const int SIZE)
     }
 }
 
-// Deletes a node based on it's index in the linked list
+// Deletes a node based on it's index in the linked lists
 void deleteNodeByIndex(Node *&head, int index)
 {
     Node *current = head;
