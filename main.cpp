@@ -12,7 +12,7 @@ struct Node
     Node *next;
 };
 
-void output(Node *);
+void output(const Node *);
 void deleteList(Node *);
 
 int main()
@@ -43,7 +43,7 @@ int main()
     }
     output(head);
 
-    // deleting a node
+    // Get user input asking which node to delete
     Node *current = head;
     cout << "Which node to delete? " << endl;
     output(head);
@@ -100,24 +100,17 @@ int main()
     prev->next = newnode;
     output(head);
 
-    // deleting the linked list
-    current = head;
-    while (current)
-    {
-        head = current->next;
-        delete current;
-        current = head;
-    }
-    head = nullptr;
+    // Delete the linked list and output
+    deleteList(head);
     output(head);
 
     return 0;
 }
 
-// deleting the linked list
-void deleteList(Node *hd)
+// Deletes an entire linked list node by node starting at head
+void deleteList(Node *head)
 {
-    current = head;
+    Node * current = head;
     while (current)
     {
         head = current->next;
@@ -128,7 +121,7 @@ void deleteList(Node *hd)
 }
 
 // Outputs linked list starting at head element
-void output(Node *hd)
+void output(const Node *hd)
 {
     if (!hd)
     {
