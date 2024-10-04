@@ -10,6 +10,8 @@
     6. Validation of user input to make sure node selected is within list. Ex: if list has item indexes [0,6], user must select a value [1,7].
     7. Get size function to return current size of the list to assist with user input validation to verify upper bound.
 
+    For all functions that may have to modify the head node, pointer is passed by reference.
+
     main() was left to manage the overall flow of the program, collect and verify user input, and call functions. User input and verification could be
     collected inside separate functions, but for this assignment, it would probably only add unnecessary abstraction and wouldn't really improve program flow.
     Readability would benefit slightly, but it's fairly straightforward as is with the included code block comments.
@@ -52,7 +54,7 @@ int main()
     cin >> entry;
     while (!validNodeIndex(head, entry)) // Validate user entry
     {
-        cout << "\nPlease enter a valid index. Choice --> ";
+        cout << "Please enter a valid index. Choice --> ";
         cin >> entry;
     }    
     // Delete selected node and output modified list
@@ -67,7 +69,7 @@ int main()
     cin >> entry;
     while (!validNodeIndex(head, entry)) // Validate user entry
     {
-        cout << "\nPlease enter a valid index. Choice --> ";
+        cout << "Please enter a valid index. Choice --> ";
         cin >> entry;
     }  
     // Insert node based on user given index, and output modified list
@@ -75,7 +77,7 @@ int main()
     cout << "Resulting list after insert:" << endl;
     output(head);
 
-    // Delete the linked list and output
+    // Delete the entire linked list and output
     deleteList(head);
     cout << "Resulting list after deletion:" << endl;
     output(head);
@@ -120,7 +122,7 @@ void deleteNodeByIndex(Node *&head, const int index)
             current = current->next;
             prev = prev->next;
         }
-    // TODO: But what if the first element was selected for deletion? Reroute head to next element
+    // Added logic: if the first element was selected for deletion, we need to replace head with the next element in the list
     if (current && current == head)
     {
         head = head->next;
